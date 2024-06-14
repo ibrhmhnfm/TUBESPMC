@@ -159,38 +159,3 @@ void cetak_biaya(BiayaTindakan *head) {
         temp = temp->next;
     }
 }
-
-int main() {
-    Pasien *head_pasien = NULL;
-    RiwayatPasien *head_riwayat = NULL;
-    BiayaTindakan *head_biaya = NULL;
-
-    if (baca_csv_pasien("DataPasien.csv", &head_pasien)) {
-        printf("Data pasien berhasil dibaca.\n");
-    } else {
-        printf("Data pasien gagal dibaca.\n");
-    }
-
-    if (baca_csv_riwayat("RiwayatPasien.csv", &head_riwayat)) {
-        printf("Data riwayat pasien berhasil dibaca.\n");
-    } else {
-        printf("Data riwayat pasien gagal dibaca.\n");
-    }
-
-    if (baca_csv_biaya("BiayaTindakan.csv", &head_biaya)) {
-        printf("Data biaya tindakan berhasil dibaca.\n");
-    } else {
-        printf("Data biaya tindakan gagal dibaca.\n");
-    }
-
-    printf("\nData Pasien:\n");
-    cetak_pasien(head_pasien);
-
-    printf("\nRiwayat Pasien:\n");
-    cetak_riwayat(head_riwayat);
-
-    printf("\nBiaya Tindakan:\n");
-    cetak_biaya(head_biaya);
-
-    return 0;
-}

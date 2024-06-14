@@ -1,4 +1,6 @@
 # TUGAS BESAR PENYELESAIAN MASALAH DENGAN C 2023/2024 KELOMPOK 1 KELAS K-03
+# (LINUX VERSION)
+path file diset untuk ubuntu os
 
 ## Deskripsi Proyek
 Proyek ini adalah bagian dari Tugas Besar Penyelesaian Masalah dengan C Semester Genap 2023/2024. Proyek bertujuan untuk mensimulasikan program penyimpanan data klinik kesehatan dengan bahasa C dan GUI sederhana

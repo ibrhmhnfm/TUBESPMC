@@ -4,9 +4,9 @@
 Proyek ini adalah bagian dari Tugas Besar Penyelesaian Masalah dengan C Semester Genap 2023/2024. Proyek bertujuan untuk mensimulasikan program penyimpanan data klinik kesehatan dengan bahasa C dan GUI sederhana
 
 ## Struktur Direktori
-- `algoritma/`: Direktori yang berisi implementasi algoritma untuk penyelesaian TSP.
-- `utils/`: Direktori yang berisi file utilitas, seperti pembacaan data dari file.
-- `data/`: Direktori yang berisi file-file data kota dan jarak antar kota.
+- `algoritma/`: Direktori yang berisi implementasi algoritma.
+- `utils/`: Direktori yang berisi file utilitas, seperti pembacaan dan penyimpanan data dari/pada file.
+- `data/`: Direktori yang berisi file-file data klinik.
 - `main.c`: Berkas utama yang memuat fungsi `main()` sebagai titik masuk program.
 
 ## Cara Run dan Compile

@@ -18,7 +18,7 @@ Proyek ini adalah bagian dari Tugas Besar Penyelesaian Masalah dengan C Semester
 ### Compile Manual dari Terminal
 1. Jalankan perintah kompilasi manual:
    ```
-   gcc -o main main.c 
+   gcc -o main main.c gcc -o main main.c utils/parsing.c algoritma/fungsi2.c
    ```
 2. Jalankan program yang telah dikompilasi:
    ```

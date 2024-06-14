@@ -1,6 +1,21 @@
+// Library Standar
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+//Library GTK+
+
+//File-file fungsi
+#include "utils/parsing.h"
+
+// FIle program
+// #include "algoritma/fungsi1.h"
+// #include "algoritma/fungsi3.h"
+// #include "algoritma/fungsi4.h"
+// #include "algoritma/fungsi5.h"
+// #include "algoritma/fungsi6.h"
+// #include "algoritma/fungsi7.h"
+#include "algoritma/fungsi2.h"
 
 // Struktur data yang digunakan
 typedef struct Pasien {
@@ -21,6 +36,7 @@ typedef struct RiwayatPasien {
     char tanggal_kunjungan[20];
     char id_pasien[20];
     char diagnosis[100];
+
     char tindakan[100];
     char kontrol[20];
     double biaya;
@@ -33,99 +49,6 @@ typedef struct BiayaTindakan {
     double biayatindakan;
     struct BiayaTindakan *next;
 } BiayaTindakan;
-
-// Fungsi untuk membaca CSV pasien
-int baca_csv_pasien(const char *nama_file, Pasien **head) {
-    FILE *file = fopen(nama_file, "r");
-    if (file == NULL) {
-        printf("File tidak ditemukan.\n");
-        return 0;
-    }
-
-    char baris[500];
-    fgets(baris, sizeof(baris), file);  // Membaca header
-    while (fgets(baris, sizeof(baris), file)) {
-        Pasien *listpasien = (Pasien*)malloc(sizeof(Pasien));
-        sscanf(baris, "%d,%99[^,],%149[^,],%49[^,],%49[^,],%29[^,],%d,%19[^,],%19[^\n]",
-               &listpasien->indekspasien, listpasien->nama_pasien, listpasien->alamat,
-               listpasien->kota, listpasien->tempat_lahir, listpasien->tanggal_lahir,
-               &listpasien->umur, listpasien->nomor_bpjs, listpasien->id_pasien);
-        listpasien->next = NULL;
-
-        if (*head == NULL) {
-            *head = listpasien;
-        } else {
-            Pasien *temp = *head;
-            while (temp->next != NULL) {
-                temp = temp->next;
-            }
-            temp->next = listpasien;
-        }
-    }
-    fclose(file);
-    return 1;
-}
-
-// Fungsi untuk membaca CSV riwayat
-int baca_csv_riwayat(const char *nama_file, RiwayatPasien **head) {
-    FILE *file = fopen(nama_file, "r");
-    if (file == NULL) {
-        printf("File tidak ditemukan.\n");
-        return 0;
-    }
-
-    char baris[500];
-    fgets(baris, sizeof(baris), file);  // Membaca header
-    while (fgets(baris, sizeof(baris), file)) {
-        RiwayatPasien *riwayat = (RiwayatPasien*)malloc(sizeof(RiwayatPasien));
-        sscanf(baris, "%d,%19[^,],%19[^,],%99[^,],%99[^,],%19[^,],%lf",
-               &riwayat->indeksriwayat, riwayat->tanggal_kunjungan, riwayat->id_pasien,
-               riwayat->diagnosis, riwayat->tindakan, riwayat->kontrol, &riwayat->biaya);
-        riwayat->next = NULL;
-
-        if (*head == NULL) {
-            *head = riwayat;
-        } else {
-            RiwayatPasien *temp = *head;
-            while (temp->next != NULL) {
-                temp = temp->next;
-            }
-            temp->next = riwayat;
-        }
-    }
-    fclose(file);
-    return 1;
-}
-
-// Fungsi untuk membaca CSV biaya
-int baca_csv_biaya(const char *nama_file, BiayaTindakan **head) {
-    FILE *file = fopen(nama_file, "r");
-    if (file == NULL) {
-        printf("File tidak ditemukan.\n");
-        return 0;
-    }
-
-    char baris[200];
-    fgets(baris, sizeof(baris), file);  // Membaca header
-    while (fgets(baris, sizeof(baris), file)) {
-        BiayaTindakan *biaya = (BiayaTindakan*)malloc(sizeof(BiayaTindakan));
-        sscanf(baris, "%d,%19[^,],%lf", &biaya->indekstindakan, biaya->aktivitas, &biaya->biayatindakan);
-        biaya->next = NULL;
-
-        if (*head == NULL) {
-            *head = biaya;
-        } else {
-            BiayaTindakan *temp = *head;
-            while (temp->next != NULL) {
-                temp = temp->next;
-            }
-            temp->next = biaya;
-        }
-    }
-    fclose(file);
-    return 1;
-}
-
 
 // Fungsi main
 int main() {
@@ -169,16 +92,16 @@ int main() {
                 //cari_pasien(head_pasien);
                 break;
             case 5:
-                //tambah_riwayat(&head_riwayat);
+                tambah_riwayat(&head_riwayat, &head_biaya, &head_pasien, count_riwayat(&head_riwayat));
                 break;
             case 6:
-                //ubah_riwayat(head_riwayat);
+                edit_riwayat(&head_riwayat);
                 break;
             case 7:
-                //hapus_riwayat(&head_riwayat);
+                hapus_riwayat(&head_riwayat);
                 break;
             case 8:
-                //cari_riwayat(head_riwayat);
+                cari_riwayat(&head_riwayat);
                 break;
             case 9:
                 //informasi_pendapatan(head_riwayat);

@@ -2,53 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+#include "algoritma/const.h"
 
 //Library GTK+
 
 //File-file fungsi
+#include "algoritma/const.h"
 #include "utils/parsing.h"
 
 // FIle program
-// #include "algoritma/fungsi1.h"
-// #include "algoritma/fungsi3.h"
-// #include "algoritma/fungsi4.h"
-// #include "algoritma/fungsi5.h"
-// #include "algoritma/fungsi6.h"
-// #include "algoritma/fungsi7.h"
-#include "algoritma/fungsi2.h"
-
-// Struktur data yang digunakan
-typedef struct Pasien {
-    int indekspasien;
-    char nama_pasien[100];
-    char alamat[150];
-    char kota[50];
-    char tempat_lahir[50];
-    char tanggal_lahir[30];
-    int umur;
-    char nomor_bpjs[20];
-    char id_pasien[20];
-    struct Pasien *next;
-} Pasien;
-
-typedef struct RiwayatPasien {
-    int indeksriwayat;
-    char tanggal_kunjungan[20];
-    char id_pasien[20];
-    char diagnosis[100];
-
-    char tindakan[100];
-    char kontrol[20];
-    double biaya;
-    struct RiwayatPasien *next;
-} RiwayatPasien;
-
-typedef struct BiayaTindakan {
-    int indekstindakan;
-    char aktivitas[20];
-    double biayatindakan;
-    struct BiayaTindakan *next;
-} BiayaTindakan;
+#include "algoritma/fungsi1.c"
+#include "algoritma/fungsi2.c"
+#include "algoritma/fungsi3.c"
+#include "algoritma/fungsi4.c"
+#include "algoritma/fungsi5.c"
+#include "algoritma/fungsi6.c"
 
 // Fungsi main
 int main() {
@@ -56,9 +25,9 @@ int main() {
     RiwayatPasien *head_riwayat = NULL;
     BiayaTindakan *head_biaya = NULL;
     
-    baca_csv_pasien("DataPasien.csv", &head_pasien);
-    baca_csv_riwayat("RiwayatPasien.csv", &head_riwayat);
-    baca_csv_biaya("BiayaTindakan.csv", &head_biaya);
+    baca_csv_pasien("data/DataPasien.csv", &head_pasien);
+    baca_csv_riwayat("data/RiwayatPasien.csv", &head_riwayat);
+    baca_csv_biaya("data/BiayaTindakan.csv", &head_biaya);
 
     int pilihan;
     do {
@@ -71,49 +40,58 @@ int main() {
         printf("6. Ubah Riwayat Pasien\n");
         printf("7. Hapus Riwayat Pasien\n");
         printf("8. Cari Riwayat Pasien\n");
-        printf("9. Informasi Pendapatan\n");
-        printf("10. Informasi Jumlah Pasien dan Penyakit\n");
-        printf("11. Informasi Kontrol Pasien\n");
+        printf("9. Cari Data dan Riwayat Pasien\n");
+        printf("10. Informasi Pendapatan\n");
+        printf("11. Informasi Jumlah Pasien dan Penyakit\n");
+        printf("12. Informasi Kontrol Pasien\n");
         printf("0. Keluar\n");
         printf("Masukkan pilihan: ");
         scanf("%d", &pilihan);
 
         switch (pilihan) {
             case 1:
-                //tambah_pasien(&head_pasien);
+                tambah_pasien(&head_pasien);
                 break;
             case 2:
-                //ubah_pasien(head_pasien);
+                ubah_pasien(head_pasien);
                 break;
             case 3:
-                //hapus_pasien(&head_pasien);
+                hapus_pasien(&head_pasien);
                 break;
             case 4:
-                //cari_pasien(head_pasien);
+                cari_pasien(head_pasien);
                 break;
             case 5:
-                tambah_riwayat(&head_riwayat, &head_biaya, &head_pasien, count_riwayat(&head_riwayat));
+                tambah_riwayat(head_riwayat, head_biaya, head_pasien, count_riwayat(head_riwayat));
                 break;
             case 6:
-                edit_riwayat(&head_riwayat);
+                edit_riwayat(head_riwayat);
                 break;
             case 7:
-                hapus_riwayat(&head_riwayat);
+                hapus_riwayat(head_riwayat);
                 break;
             case 8:
-                cari_riwayat(&head_riwayat);
+                cari_riwayat(head_riwayat);
                 break;
             case 9:
-                //informasi_pendapatan(head_riwayat);
+                informasi_riwayat_pasien(head_pasien, head_riwayat);
                 break;
             case 10:
-                //informasi_riwayat(head_riwayat);
+                laporan_pendapatan(head_riwayat);
                 break;
             case 11:
-                //informasi_kontrol(head_riwayat);
+                printf("Jumlah pasien beserta penyakit tiap bulannya:\n");
+                jumlah_pasien_dan_penyakit_per_tahun(head_riwayat);
                 break;
-            case 0:
-                printf("Keluar dari program.\n");
+            case 12:
+                informasi_kontrol_pasien(head_riwayat);
+                break;
+            case 0: 
+                /*char nama_file[100];
+                printf("Masukkan nama file untuk menyimpan data (misal: DataPasien2024.csv): ");
+                scanf(" %[^\n]", nama_file);
+                simpan_csv_pasien(nama_file, head_pasien);
+                printf("Keluar dari program.\n");*/
                 break;
             default:
                 printf("Pilihan tidak valid.\n");
